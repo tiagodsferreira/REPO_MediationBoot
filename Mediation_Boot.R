@@ -6,7 +6,7 @@
 
 
 # Let say you have the mediation model : x→m→y and you know the correlations: 
-#  a=ρ(x,m), 
+#  a=ρ(x,m),
 #  b=ρ(m,y|x) and 
 #  c=ρ(x,y). 
 #  You then know the indirect effect ab=a∗b and the direct effect c′=c−ab.
