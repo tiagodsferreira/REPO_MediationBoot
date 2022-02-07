@@ -4,8 +4,6 @@
 ##################
 # https://stats.stackexchange.com/questions/184654/simulating-data-for-mediation-model
 
-# Comentário test 2
-
 # Let say you have the mediation model : x→m→y and you know the correlations: 
 #  a=ρ(x,m),
 #  b=ρ(m,y|x) and 
