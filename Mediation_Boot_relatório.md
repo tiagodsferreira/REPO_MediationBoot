@@ -11,8 +11,10 @@ Em estatística, um modelo de mediação permite identificar e explicar um
 por meio da inclusão de uma terceira variável denominada variável
 mediadora (M)**. Segundo Baron e Kenny, uma variável é designada de
 mediadora “*na medida em que ela explica/é responsável pela relação
-entre o preditor e o resposta*” ![(Figura
-1)](https://github.com/tiagodsferreira/REPO_MediationBoot/blob/a15867a5aba0a254562f424c4c8ac951e0fb3e5f/Mediation_Boot_relat%C3%B3rio_files/figure-gfm/Mediation.png?raw=true))
+entre o preditor e o resposta*” (ver Figura 1).
+
+![(Figura
+1)](https://github.com/tiagodsferreira/REPO_MediationBoot/blob/a15867a5aba0a254562f424c4c8ac951e0fb3e5f/Mediation_Boot_relat%C3%B3rio_files/figure-gfm/Mediation.png?raw=true)
 
 Na figura anterior são denotados os efeitos intervenientes num modelo
 mediação em que *c* representa o efeito total, isto é, o efeito causado
@@ -35,6 +37,16 @@ três regressões:
 $$
 \\tag{1}
 Y = b1 + \\textit{c}X + e1
+$$
+
+$$
+\\tag{2}
+M = b2 + \\textit{a} X + e2 
+$$
+
+$$
+\\tag{3}
+Y= b3 + \\textit{b}M + \\textit{cp}X + e3 
 $$
 
 A metodologia mais utilizada para a análise de mediação é conhecida por
@@ -107,8 +119,21 @@ indireto de *x* sobre *y* (ab) dado pelo produto dos coeficientes
 *a*<sub>*x**m*</sub> e *b*<sub>*m**y*\|*x*</sub>.
 
 Assim, temos que:  
+$$
+\\tag{4}
+c\_{xy} = cp\_{xy\|m} + (a\_{xm} \* b\_{my\|x})
+$$
 
-de onde: e
+de onde:
+$$
+\\tag{5}
+cp\_{xy\|m}  = c\_{xy} - (a\_{xm} \* b\_{my\|x})
+$$
+e
+$$
+\\tag{6}
+(a\_{xm} \* b\_{my\|x})  = c\_{xy} - cp\_{xy\|m}
+$$
 
 Para simular um modelo de mediação é necessário portanto definir 3
 parâmetros á priori, nomeadamente *a*<sub>*x**m*</sub> e
@@ -153,11 +178,20 @@ summary(x)
 
 Tendo *x* podemos agora estimar os valores de *m* através do seguinte
 modelo de regressão simples:  
+$$
+\\tag{7}
+m = a\_{xm}x + \\varepsilon\_m
+$$
 
 *ε*<sub>*m*</sub>, a **variância residual ou erro do modelo**, segue uma
 distribuição normal com média 0 e variância constante *σ*<sup>2</sup>,
 *ε*<sub>*m*</sub>∼ *N*(0, *σ*<sup>2</sup>). Para mantermos a variância
 total em 1 calculou-se *σ*<sup>2</sup> através da seguinte fórmula:
+
+$$
+\\tag{8}
+\\sigma^2\_m = \\sqrt{1-a^2\_{xm}}
+$$
 
 **Nota:** Usamos o quadrado do peso de regressão estandardizado para
 obter a variância explicada pelo modelo e subtraímos esse valor a 1 para
@@ -179,9 +213,19 @@ ggplot(data.frame(m=m), aes(x=m)) + geom_histogram() + labs(title="histograma de
 Finalmente, aalculam-se os valores de *y* pelo seguinte modelo de
 regressão:
 
+$$
+\\tag{9}
+y = cp\_{xy\|m} + b\_{my\|x} + \\varepsilon\_y
+$$
+
 Para calcular a variância do erro, sabendo que
 *v**a**r*(*x* + *m*) = *v**a**r*(*x*) + *v**a**r*(*m*) + 2*c**o**v*(*x**m*),
 e para manter *y*∼ *N*(0, 1), empregamos seguinte fórmula:
+
+$$
+\\tag{10}
+\\sigma^2\_y = \\sqrt{1 - (cp^2\_{xy\|m}+b^2\_{my\|x}+2a\_{xm}cp\_{xy\|m}b\_{my\|x}})
+$$
 
 Uma boa intuição para o parâmetro *σ*<sub>*y*</sub><sup>2</sup> é dada
 pelas regras de pistas propostas por Wright ([*Wright’s tracing
@@ -219,21 +263,21 @@ distribuições pretendidos.
 [numeric]</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0.1 (0.9)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-2.3 &le; 0.1 &le; 2.2</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.2 (10.1)</td></tr></table></td>
       <td align="left" style="vertical-align:middle">100 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDjgHgB4NTgAAAItJREFUWMPt12EKgCAMBWCvYDdo3iDvf7dqgopYtgmV+N4PwdiHA6mRMfPF1kJnVnuZO+v8ka8sN046y8sGCwsLCws7uq2O8YfW10YxbK9d+E6U1kf2lg3tKm2q/YstXwiJdcXhsLDD2+x/SWzDHrbDUvy8Ni1X5jaVNS0vsGKbZrXclo/fsqSJmS87/aDs19+9msQAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDItMjJUMTQ6NTY6MDcrMDA6MDDhvHVMAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTAyLTIyVDE0OjU2OjA3KzAwOjAwkOHN8AAAAABJRU5ErkJggg=="></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDjsXtoRO6QAAAItJREFUWMPt12EKgCAMBWCvYDdo3iDvf7dqgopYtgmV+N4PwdiHA6mRMfPF1kJnVnuZO+v8ka8sN046y8sGCwsLCws7uq2O8YfW10YxbK9d+E6U1kf2lg3tKm2q/YstXwiJdcXhsLDD2+x/SWzDHrbDUvy8Ni1X5jaVNS0vsGKbZrXclo/fsqSJmS87/aDs19+9msQAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDItMjJUMTQ6NTk6MjMrMDA6MDCm3Q2vAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTAyLTIyVDE0OjU5OjIzKzAwOjAw14C1EwAAAABJRU5ErkJggg=="></td>
     </tr>
     <tr>
       <td align="left">m
 [numeric]</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0 (0.9)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-2.1 &le; 0 &le; 2.1</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.3 (-29.1)</td></tr></table></td>
       <td align="left" style="vertical-align:middle">100 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDjgHgB4NTgAAAIpJREFUWMPt12EKgCAMBWCvUDdIb9Duf7dqQpNR5IZF5Xs/BNEPZaBWCP1lOE3kHA5d2kRrZlhYWNjbLd9UTssM1mq55JPPbg291o7y7tmt1BW2ysrRtVvaGSxshdWXlsUmtTgsLOzHbPFPa7a539Tm7fisTHvMFp/ZZqum/dJyfZyWmwY2ehL6ywKypu5Ku5LTbAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wMi0yMlQxNDo1NjowNyswMDowMOG8dUwAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDItMjJUMTQ6NTY6MDcrMDA6MDCQ4c3wAAAAAElFTkSuQmCC"></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDjsXtoRO6QAAAIpJREFUWMPt12EKgCAMBWCvUDdIb9Duf7dqQpNR5IZF5Xs/BNEPZaBWCP1lOE3kHA5d2kRrZlhYWNjbLd9UTssM1mq55JPPbg291o7y7tmt1BW2ysrRtVvaGSxshdWXlsUmtTgsLOzHbPFPa7a539Tm7fisTHvMFp/ZZqum/dJyfZyWmwY2ehL6ywKypu5Ku5LTbAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wMi0yMlQxNDo1OToyMyswMDowMKbdDa8AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDItMjJUMTQ6NTk6MjMrMDA6MDDXgLUTAAAAAElFTkSuQmCC"></td>
     </tr>
     <tr>
       <td align="left">y
 [numeric]</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0.1 (0.9)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-1.8 &le; 0.1 &le; 2.5</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.1 (9.1)</td></tr></table></td>
       <td align="left" style="vertical-align:middle">100 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDjgHgB4NTgAAAItJREFUWMPt1tsJwCAMBVBXsBs0bqD779YaoYrYR4Kg1Hs/BMGDElBjzHqxrVDMbm/zZF04AwsLO8BufHWVNqoA+2JTiZU2Ag8L+0/LV4N0lgcPCws71jbb/482tJ6QXpaur1du87K5bF1siXXV5rBL2Nzjy221bEJb9BBim+ajLB9caXnoYEkTs14OfjviBsF8c2UAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDItMjJUMTQ6NTY6MDcrMDA6MDDhvHVMAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTAyLTIyVDE0OjU2OjA3KzAwOjAwkOHN8AAAAABJRU5ErkJggg=="></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDjsXtoRO6QAAAItJREFUWMPt1tsJwCAMBVBXsBs0bqD779YaoYrYR4Kg1Hs/BMGDElBjzHqxrVDMbm/zZF04AwsLO8BufHWVNqoA+2JTiZU2Ag8L+0/LV4N0lgcPCws71jbb/482tJ6QXpaur1du87K5bF1siXXV5rBL2Nzjy221bEJb9BBim+ajLB9caXnoYEkTs14OfjviBsF8c2UAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDItMjJUMTQ6NTk6MjMrMDA6MDCm3Q2vAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTAyLTIyVDE0OjU5OjIzKzAwOjAw14C1EwAAAABJRU5ErkJggg=="></td>
     </tr>
   </tbody>
 </table></div>
@@ -396,21 +440,21 @@ usando usando funções base do R.
 [numeric]</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0 (1)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-2.3 &le; 0 &le; 3.2</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.3 (-88.5)</td></tr></table></td>
       <td align="left" style="vertical-align:middle">200 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDjgJZ6YgSQAAAIlJREFUWMPt19sJwCAMBVBXsBvUbqD771YNCPWt6UelufdLwYMogahS8qLzHMbn1N00rfOBhW3ZQW117dXfG1aeDeVkmDYQCws7slRkTEsT2H/belObs/WGCgu7uaVvAte653JYWHnWxDBsXGH3s+Vjad7S4I1NGvGiTQ7+gaWLY1qa5HW1EiUvNwdUy+SzGZwoAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTAyLTIyVDE0OjU2OjA5KzAwOjAwsYMOEQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wMi0yMlQxNDo1NjowOSswMDowMMDetq0AAAAASUVORK5CYII="></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDjsZUTxj7gAAAIlJREFUWMPt19sJwCAMBVBXsBvUbqD771YNCPWt6UelufdLwYMogahS8qLzHMbn1N00rfOBhW3ZQW117dXfG1aeDeVkmDYQCws7slRkTEsT2H/belObs/WGCgu7uaVvAte653JYWHnWxDBsXGH3s+Vjad7S4I1NGvGiTQ7+gaWLY1qa5HW1EiUvNwdUy+SzGZwoAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTAyLTIyVDE0OjU5OjI1KzAwOjAwxQ04lQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wMi0yMlQxNDo1OToyNSswMDowMLRQgCkAAAAASUVORK5CYII="></td>
     </tr>
     <tr>
       <td align="left">m
 [numeric]</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0 (1.1)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-2.6 &le; 0 &le; 2.9</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.3 (133.5)</td></tr></table></td>
       <td align="left" style="vertical-align:middle">200 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDjgJZ6YgSQAAAJdJREFUWMPt1mEKgCAMBWCvkDdIb9Duf7eYOMlcRSMq9L1/4j4EcUPnxst0mMDRty5tJKIFFhYWtmPLI9Jq2cF2ab28C4ul7GBhYX9guZlno+XFV7b9wGs2VTW2vTTNVuWwsPkplm+RwdK+vLZVM960VUMNbP225U9sueutbap0G+Vso01jyWjT4gEro9FiZeNtGyxx42UF9U65n5uU13MAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDItMjJUMTQ6NTY6MDkrMDA6MDCxgw4RAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTAyLTIyVDE0OjU2OjA5KzAwOjAwwN62rQAAAABJRU5ErkJggg=="></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDjsZUTxj7gAAAJdJREFUWMPt1mEKgCAMBWCvkDdIb9Duf7eYOMlcRSMq9L1/4j4EcUPnxst0mMDRty5tJKIFFhYWtmPLI9Jq2cF2ab28C4ul7GBhYX9guZlno+XFV7b9wGs2VTW2vTTNVuWwsPkplm+RwdK+vLZVM960VUMNbP225U9sueutbap0G+Vso01jyWjT4gEro9FiZeNtGyxx42UF9U65n5uU13MAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDItMjJUMTQ6NTk6MjUrMDA6MDDFDTiVAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTAyLTIyVDE0OjU5OjI1KzAwOjAwtFCAKQAAAABJRU5ErkJggg=="></td>
     </tr>
     <tr>
       <td align="left">y
 [numeric]</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0 (1.1)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-3.6 &le; 0.1 &le; 2.7</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.5 (22.1)</td></tr></table></td>
       <td align="left" style="vertical-align:middle">200 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDjgJZ6YgSQAAAI1JREFUWMPt11EKgCAMBmCvkDdIb+Duf7ccTVLD0vUU+3/wodjHMGSSc/ayPSbk7PfXUzYSESwsrC3LM0Nr2cHCwtqyXmaGyor7anluaW1eadbyXkNnu95jm+tTZ6ntDQsLC3tF5o3KlkLYVP0KL9vqarJig0Rjy+OPrdzoXr7Cko3nSfXDwpe+y3H2cgBfZK7obco6WgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wMi0yMlQxNDo1NjowOSswMDowMLGDDhEAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDItMjJUMTQ6NTY6MDkrMDA6MDDA3ratAAAAAElFTkSuQmCC"></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDjsZUTxj7gAAAI1JREFUWMPt11EKgCAMBmCvkDdIb+Duf7ccTVLD0vUU+3/wodjHMGSSc/ayPSbk7PfXUzYSESwsrC3LM0Nr2cHCwtqyXmaGyor7anluaW1eadbyXkNnu95jm+tTZ6ntDQsLC3tF5o3KlkLYVP0KL9vqarJig0Rjy+OPrdzoXr7Cko3nSfXDwpe+y3H2cgBfZK7obco6WgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wMi0yMlQxNDo1OToyNSswMDowMMUNOJUAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDItMjJUMTQ6NTk6MjUrMDA6MDC0UIApAAAAAElFTkSuQmCC"></td>
     </tr>
   </tbody>
 </table></div>
@@ -676,6 +720,11 @@ definir um intervalo de confiança para *ab* e se o zero pertencer ao
 intervalo dado pela equação, o efeito não é estatisticamente
 significativo (MacKinnon et al., 2012).
 
+$$
+\\tag{11}
+IC=(\\hat{a}\\hat{b}-z\_{1-\\frac{α}{2}}×s\_{\\hat{a}\\hat{b}}, \\hat{a}\\hat{b}+z\_{1-\\frac{α}{2}}×s\_{\\hat{a}\\hat{b}})
+$$
+
 Onde *α* representa o nível de significância, $z\_{1-\\frac{α}{2}}$ o
 quantil de probabilidade da distribuição Normal reduzida e
 *s*<sub>*â**b̂*</sub> o erro padrão de *â**b̂*.
@@ -727,8 +776,18 @@ parâmetro de efeitos indiretos no contexto do modelo de mediação.
 Trata-se de um teste que tem por base uma distribuição z calculada
 através da seguinte equação:
 
+$$
+\\tag{12}
+z = \\frac{a\_{xm}b\_{my\|x}}{SE}  
+$$
+
 No teste Sobel o desvio médio da estimativa do efeito indireto é dado
 pela seguinte equação:
+
+$$
+\\tag{13}
+SE=\\sqrt{(a^2\_{xm}s^2\_{b\_{my\|x}}+b^2\_{my\|x}s^2\_{a\_{xm}})}
+$$
 
 Nesta equação *s*<sup>2</sup> representa a variância dos parâmetros
 *a*<sub>*x**m*</sub> e *b*<sub>*m**y*\|*x*</sub>. As seguintes linhas de
@@ -900,6 +959,11 @@ função geradora das estimativas para o coeficiente *ab*. Usamos cálculo
 matricial para encontrar o parâmetro ab, aplicando a seguinte equação
 para estimação dos parâmetros de um modelo de regressão linear múltipla:
 
+$$
+\\tag{14}
+\\hat{\\beta}=(\\textbf{X}^T\\textbf{X})^{-1}\\textbf{X}^Ty
+$$
+
 ``` r
 names(df1)
 ```
@@ -1019,14 +1083,28 @@ método é necessário calcular uma constante de aceleração, denotada por
 *a*, que é estimada pelo método Jackknife. O intervalo bootstrap para o
 parametro *θ* tem a forma:
 
+$$
+\\tag{15}
+g(u)=\\hat{F}^{-1}(\\Theta(\\textit{Z}\_0 + \\frac{\\textit{Z}\_u + \\textit{Z}\_0}{1-a(\\textit{Z}\_0+ \\textit{Z}\_u)}))
+$$
+
 *Θ*(*z*), representa a função de distribuição da normal estandardizada  
 *Z*<sub>0</sub> = *Θ*<sup> − 1</sup>(*F̂*(*θ̂*)) *Z*<sub>*u*</sub> =
 *Θ*<sup> − 1</sup>(*u*) *a* é a constante de aceleração
 
 A constante de aceleração *a* assume a seguinte forma:
+$$
+\\tag{16}
+\\hat{a}= \\frac{1}{6} \\frac{\\sum\_{i=1}^{n}I\_{i}^{3}}{(\\sum\_{i=1}^{n}I\_{i}^{2})^\\frac{3}{2}}
+$$
 
 *I*<sub>*i*</sub> exprime a influência de *x*<sub>*i*</sub> na
 estimativa de *θ* sendo aproximada pelo método jackknife (Efron, 1987).
+
+$$
+\\tag{17}
+I\_i= (n-1) \[\\hat{\\theta} - \\hat{\\theta}\_i\]
+$$
 
 Implementamos esta abordagem no R, criando a função **boot\_cba**.
 

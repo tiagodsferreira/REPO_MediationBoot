@@ -28,7 +28,9 @@ knitr::opts_chunk$set(
 
 # Parte 1: Introdução à mediação e efeitos indiretos
 
-Em estatística, um modelo de mediação permite identificar e explicar um **efeito da variável independente (X) sobre a variável dependente (Y) por meio da inclusão de uma terceira variável denominada variável mediadora (M)**. Segundo Baron e Kenny, uma variável é designada de mediadora "*na medida em que ela explica/é responsável pela relação entre o preditor e o resposta*" ![(Figura 1)](https://github.com/tiagodsferreira/REPO_MediationBoot/blob/a15867a5aba0a254562f424c4c8ac951e0fb3e5f/Mediation_Boot_relat%C3%B3rio_files/figure-gfm/Mediation.png?raw=true))
+Em estatística, um modelo de mediação permite identificar e explicar um **efeito da variável independente (X) sobre a variável dependente (Y) por meio da inclusão de uma terceira variável denominada variável mediadora (M)**. Segundo Baron e Kenny, uma variável é designada de mediadora "*na medida em que ela explica/é responsável pela relação entre o preditor e o resposta*" (ver Figura 1).  
+
+![(Figura 1)](https://github.com/tiagodsferreira/REPO_MediationBoot/blob/a15867a5aba0a254562f424c4c8ac951e0fb3e5f/Mediation_Boot_relat%C3%B3rio_files/figure-gfm/Mediation.png?raw=true)
 
 Na figura anterior são denotados os efeitos intervenientes num modelo mediação em que *c* representa o efeito total, isto é, o efeito causado por X em Y, *cp* designa-se por efeito parcial, este considera a inclusão da variável mediadora no modelo, correspondendo à relação direta entre a variável independente e dependente, mantendo fixo M. Ou seja, é o efeito de X em Y devido a outras causas que não a mediadora. Pelo facto de considerar a mediadora, *cp* difere de *c*, pois correspondem a relações diferentes. O efeito indireto envolve as letras *a* e *b*. Enquanto *a* representa o efeito da variável independente na variável mediadora, *b* representa o efeito da variável mediadora na variável dependente, mantendo fixa a variável independente. O efeito total é a soma dos efeitos diretos e indiretos.
 
@@ -42,15 +44,15 @@ Y = b1 + \textit{c}X + e1
 $$
 
 
-\begin{equation}
+$$
 \tag{2}
 M = b2 + \textit{a} X + e2 
-\end{equation}
+$$
 
-\begin{equation}
+$$
 \tag{3}
 Y= b3 + \textit{b}M + \textit{cp}X + e3 
-\end{equation}
+$$
 
 A metodologia mais utilizada para a análise de mediação é conhecida por métodos dos quatro passos. Genericamente analisam as equações de regressão estimadas, de forma a verificar, em cada passo, se os seus coeficientes são estatisticamente significativos. De uma forma sucinta:
 
@@ -83,21 +85,21 @@ Um modelo de mediação pressupõe duas variáveis preditoras (*x* e *m*) e duas
 Assim os parametros $a_{xm}$ e $c_{xy}$ são coeficientes brutos, enquanto que os coeficientes $b_{my|x}$ e $cp_{xy|m}$ são coeficientes ajustados. O parâmetro $a_{xm}$ representa a correlação entre as variáveis *x* e *m* enquanto o parâmetro $c_{xy}$ representa a correlação entre *x* e *y*, também denominado de efeito total. O efeito direto de *x* sobre *y* é dado pelo parâmetro $cp_{xy|m}$, correspondente á correlação parcial entre *x* e *y* da *m*. $b_{my|x}$, necessariamente não nulo numa mediação, representa o efeito de *m* sobre *y*, quando controlando o efeito de *x*. Finalmente, temos o efeito indireto de *x* sobre *y* (ab) dado pelo produto dos coeficientes $a_{xm}$ e $b_{my|x}$.
 
 Assim, temos que:  
-\begin{equation}
+$$
 \tag{4}
 c_{xy} = cp_{xy|m} + (a_{xm} * b_{my|x})
-\end{equation}
+$$
 
 de onde:
-\begin{equation}
+$$
 \tag{5}
 cp_{xy|m}  = c_{xy} - (a_{xm} * b_{my|x})
-\end{equation}
+$$
 e 
-\begin{equation}
+$$
 \tag{6}
 (a_{xm} * b_{my|x})  = c_{xy} - cp_{xy|m}
-\end{equation}
+$$
 
 Para simular um modelo de mediação é necessário portanto definir 3 parâmetros á priori, nomeadamente $a_{xm}$ e $b_{my|x}$ e $c_{xy}$ ou $cp_{xy|m}$. Para desenvolver a simulação dos nosso dados utilizamos valores estandardizados dos parâmetros de regressão. Neste contexto, os parâmetros poderiam variar entre -1 e 1. Assume-se assim que os seguintes parâmetros são conhecidos.   
 $a_{xm} = 0.6$  
@@ -119,17 +121,17 @@ summary(x)
 ```
 
 Tendo *x* podemos agora estimar os valores de *m* através do seguinte modelo de regressão simples:  
-\begin{equation}
+$$
 \tag{7}
 m = a_{xm}x + \varepsilon_m
-\end{equation} 
+$$ 
 
 $\varepsilon_m$, a **variância residual ou erro do modelo**, segue uma distribuição normal com média 0 e variância constante $\sigma^2$, $\varepsilon_m \sim\ N(0, \sigma^2)$. Para mantermos a variância total em 1 calculou-se $\sigma^2$ através da seguinte fórmula:
 
-\begin{equation}
+$$
 \tag{8}
 \sigma^2_m = \sqrt{1-a^2_{xm}}
-\end{equation}
+$$
 
 **Nota:** Usamos o quadrado do peso de regressão estandardizado para obter a variância explicada pelo modelo e subtraímos esse valor a 1 para obter a variância não explicada ou erro do modelo. A raiz quadrada é empregue para manter a estandardização da variância. No R, a computação de *m* é feita através do seguinte código.
 ```{r, warning=FALSE}
@@ -141,17 +143,17 @@ ggplot(data.frame(m=m), aes(x=m)) + geom_histogram() + labs(title="histograma de
 
 Finalmente, aalculam-se os valores de *y* pelo seguinte modelo de regressão:
 
-\begin{equation}
+$$
 \tag{9}
 y = cp_{xy|m} + b_{my|x} + \varepsilon_y
-\end{equation}
+$$
 
 Para calcular a variância do erro, sabendo que $var(x + m) =var(x) + var(m) + 2cov(xm)$, e para manter $y \sim\ N(0, 1)$, empregamos seguinte fórmula:
 
-\begin{equation}
+$$
 \tag{10}
 \sigma^2_y = \sqrt{1 - (cp^2_{xy|m}+b^2_{my|x}+2a_{xm}cp_{xy|m}b_{my|x}})
-\end{equation}  
+$$  
 
 Uma boa intuição para o parâmetro $\sigma^2_y$ é dada pelas regras de pistas propostas por Wright ([*Wright's tracing rule*](https://en.wikipedia.org/wiki/Path_analysis_(statistics)#Path_tracing_rules)). Sabendo isto, o processo de gerar dados para *y* torna-se relativamente direto. 
 
@@ -362,10 +364,10 @@ Como já foi referido, na parte 1, a mediação é avaliada através de equaçõ
 
 A método do produto de coeficientes, no contexto do modelo de mediação (Figura 1), baseia-se na definição do efeito mediado como a multiplicação dos coeficientes de regressão *a* e *b*. Podemos assim definir um intervalo de confiança para *ab* e se o zero pertencer ao intervalo dado pela equação, o efeito não é estatisticamente significativo (MacKinnon et al., 2012).  
 
-\begin{equation}
+$$
 \tag{11}
 IC=(\hat{a}\hat{b}-z_{1-\frac{α}{2}}×s_{\hat{a}\hat{b}}, \hat{a}\hat{b}+z_{1-\frac{α}{2}}×s_{\hat{a}\hat{b}})
-\end{equation}  
+$$  
 
 Onde $\alpha$ representa o nível de significância, $z_{1-\frac{α}{2}}$ o quantil de probabilidade da distribuição Normal reduzida e $s_{\hat{a}\hat{b}}$ o erro padrão de $\hat{a}\hat{b}$.
 
@@ -382,17 +384,17 @@ O método Bootstrap pertence à classe da metodologia de Monte Carlo, baseando-s
 ## Teste de Sobel
 Como discutido na secção anterior do presente relatório, o teste de Sobel é uma abordagem paramétrica à significância estatística do parâmetro de efeitos indiretos no contexto do modelo de mediação. Trata-se de um teste que tem por base uma distribuição z calculada através da seguinte equação:
 
-\begin{equation}
+$$
 \tag{12}
 z = \frac{a_{xm}b_{my|x}}{SE}  
-\end{equation}
+$$
 
 No teste Sobel o desvio médio da estimativa do efeito indireto é dado pela seguinte equação:
 
-\begin{equation}
+$$
 \tag{13}
 SE=\sqrt{(a^2_{xm}s^2_{b_{my|x}}+b^2_{my|x}s^2_{a_{xm}})}
-\end{equation}
+$$
 
 Nesta equação $s^2$ representa a variância dos parâmetros $a_{xm}$ e $b_{my|x}$. As seguintes linhas de código implementa o teste de Sobel no R. Para exemplificar utilizaremos a base de dados **df1** ($n=100$) gerada na parte 2 do presente relatório.
 
@@ -472,10 +474,10 @@ Neste projeto implementamos dois tipos de bootstrap, o **bootstrap percentílico
 
 Para implementar estes dois métodos bootstrap foi necessário criar uma função geradora das estimativas para o coeficiente *ab*. Usamos cálculo matricial para encontrar o parâmetro ab, aplicando a seguinte equação para estimação dos parâmetros de um modelo de regressão linear múltipla:
 
-\begin{equation}
+$$
 \tag{14}
 \hat{\beta}=(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^Ty
-\end{equation}
+$$
 
 ```{r}
 names(df1)
@@ -549,10 +551,10 @@ ggplot(data.frame(theta=testboot1[[2]]), aes(x=theta)) +
 
 Duas limitações têm sido apontadas ao bootstrap percentílico. **Primeiro**, não tem em conta os dados originais, resultando exclusivamente da re-amostragem com reposição. **Segundo**, o bootstrap percentílico não ajusta eventual assimetria da distribuição bootstrap. Para abordar estas limitações é proposto o método bootstrap com correção de viés e fator de aceleração (BCa) (Efron and Tibshirani, 1993). O BCa tem a consideração e faz a correção do viés que pode decorrer de uma eventual assimetria de distribuição bootstrap. *A presença de assimetria em distribuições bootstrap é habitual*. Neste sentido, o BCa foi desenvolvido para obter os intervalos de confiança com uma correção da assimetria (Efron and Tibshirani, 1993). Para o desenvolvimento deste método é necessário calcular uma constante de aceleração, denotada por $a$, que é estimada pelo método Jackknife. O intervalo bootstrap para o parametro $\theta$ tem a forma:
 
-\begin{equation}
+$$
 \tag{15}
 g(u)=\hat{F}^{-1}(\Theta(\textit{Z}_0 + \frac{\textit{Z}_u + \textit{Z}_0}{1-a(\textit{Z}_0+ \textit{Z}_u)}))
-\end{equation}
+$$
 
 $\Theta(z)$, representa a função de distribuição da normal estandardizada  
 $\textit{Z}_0$ = $\Theta^{-1}(\hat{F}(\hat{\theta}))$
@@ -560,17 +562,17 @@ $\textit{Z}_u$ = $\Theta^{-1}(u)$
 *a* é a constante de aceleração
 
 A constante de aceleração *a* assume a seguinte forma: 
-\begin{equation}
+$$
 \tag{16}
 \hat{a}= \frac{1}{6} \frac{\sum_{i=1}^{n}I_{i}^{3}}{(\sum_{i=1}^{n}I_{i}^{2})^\frac{3}{2}}
-\end{equation}
+$$
 
 $I_i$ exprime a influência de $x_i$ na estimativa de $\theta$ sendo aproximada pelo método jackknife (Efron, 1987).
 
-\begin{equation}
+$$
 \tag{17}
 I_i= (n-1) [\hat{\theta} - \hat{\theta}_i]
-\end{equation}
+$$
 
 Implementamos esta abordagem no R, criando a função **boot_cba**.
 ```{r}
