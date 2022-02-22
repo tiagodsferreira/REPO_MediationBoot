@@ -34,10 +34,12 @@ Na figura anterior são denotados os efeitos intervenientes num modelo mediaçã
 
 Neste modelo de mediação, há dois caminhos para a variável dependente. A variável independente deve prever a variável dependente, e a variável independente deve prever o mediador. A mediação é testada através de três regressões:
 
-\begin{equation}
+
+
+$$
 \tag{1}
 Y = b1 + \textit{c}X + e1
-\end{equation}
+$$
 
 
 \begin{equation}
