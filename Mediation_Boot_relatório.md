@@ -1,7 +1,6 @@
 Utilização do Bootstrap para Teste Hipóteses sobre Efeitos Indiretos
 ================
 Ana Machado, Ana Paquete, & Tiago Ferreira
-14 de Janeiro de 2022
 
 # Objetivos
 
@@ -12,32 +11,21 @@ Em estatística, um modelo de mediação permite identificar e explicar um
 por meio da inclusão de uma terceira variável denominada variável
 mediadora (M)**. Segundo Baron e Kenny, uma variável é designada de
 mediadora “*na medida em que ela explica/é responsável pela relação
-entre o preditor e o resposta*” (Figura 1).
+entre o preditor e o resposta*” \[(Figura
+1)\]("G:Drivetrainning\_Boot\_MediationBoot\_Boot\_relatório\_files  
 
-    ## PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-
-<div class="figure">
-
-<div id="htmlwidget-b82fa6a23b30b7ef6b8e" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b82fa6a23b30b7ef6b8e">{"x":{"diagram":"\ndigraph SEM {\n\ngraph [layout = neato,\n       overlap = true,\n       outputorder = edgesfirst]\n\nnode [shape = rectangle]\n\nx [pos = \"-3,0!\", label = \"X\"]\nm [pos = \"0,2!\", label = \"M\"]\ny [pos = \"3,0!\", label = \"Y\"]\nem [pos = \"1,2.5!\", label = \"em\", shape = circle]\ney [pos = \"4,0.5!\", label = \"ey\", shape = circle]\n\nx->m [label = \"a\"]\nx->y [label = \"cp(c)\"]\nm->y [label = \"b\"]\n\nem->m\ney->y\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-<p class="caption">
-Figura 1: Diagrama de modelo de mediação
-</p>
-
-</div>
-
-Na figura 1 são denotados os efeitos intervenientes num modelo mediação
-em que *c* representa o efeito total, isto é, o efeito causado por X em
-Y, *cp* designa-se por efeito parcial, este considera a inclusão da
-variável mediadora no modelo, correspondendo à relação direta entre a
-variável independente e dependente, mantendo fixo M. Ou seja, é o efeito
-de X em Y devido a outras causas que não a mediadora. Pelo facto de
-considerar a mediadora, *cp* difere de *c*, pois correspondem a relações
-diferentes. O efeito indireto envolve as letras *a* e *b*. Enquanto *a*
-representa o efeito da variável independente na variável mediadora, *b*
-representa o efeito da variável mediadora na variável dependente,
-mantendo fixa a variável independente. O efeito total é a soma dos
-efeitos diretos e indiretos.
+Na figura anterior são denotados os efeitos intervenientes num modelo
+mediação em que *c* representa o efeito total, isto é, o efeito causado
+por X em Y, *cp* designa-se por efeito parcial, este considera a
+inclusão da variável mediadora no modelo, correspondendo à relação
+direta entre a variável independente e dependente, mantendo fixo M. Ou
+seja, é o efeito de X em Y devido a outras causas que não a mediadora.
+Pelo facto de considerar a mediadora, *cp* difere de *c*, pois
+correspondem a relações diferentes. O efeito indireto envolve as letras
+*a* e *b*. Enquanto *a* representa o efeito da variável independente na
+variável mediadora, *b* representa o efeito da variável mediadora na
+variável dependente, mantendo fixa a variável independente. O efeito
+total é a soma dos efeitos diretos e indiretos.
 
 Neste modelo de mediação, há dois caminhos para a variável dependente. A
 variável independente deve prever a variável dependente, e a variável
@@ -72,17 +60,17 @@ para o efeito indireto definido como o produto de coeficientes é baseado
 na distribuição do produto de coeficientes. No entanto, o método
 bootstrap é o mais recomendado.
 
-A título de curiosidade, deixamos aqui alguns exemplos práticos que
-utilizam a análise de mediação:  
--
-<https://www.sciencedirect.com/science/article/pii/S231472101500002X>  
--
-<https://www.thelancet.com/pdfs/journals/lanplh/PIIS2542-5196(21)00235-7.pdf>  
--
-<https://www.thelancet.com/pdfs/journals/lanpub/PIIS2468-2667(20)30292-9.pdf>  
--
-<https://www.thelancet.com/pdfs/journals/eclinm/PIIS2589-5370(21)00483-1.pdf>  
-- <https://eng.uber.com/mediation-modeling/>
+A título de curiosidade, deixamos aqui alguns exemplos de aplicações da
+análise de mediação:  
+- <https://www.sciencedirect.com/science/article/pii/S231472101500002X>
+
+-   <https://www.thelancet.com/pdfs/journals/lanplh/PIIS2542-5196(21)00235-7.pdf>
+
+-   <https://www.thelancet.com/pdfs/journals/lanpub/PIIS2468-2667(20)30292-9.pdf>
+
+-   <https://www.thelancet.com/pdfs/journals/eclinm/PIIS2589-5370(21)00483-1.pdf>
+
+-   <https://eng.uber.com/mediation-modeling/>
 
 ------------------------------------------------------------------------
 
@@ -149,7 +137,7 @@ ggplot(data.frame(x=x), aes(x=x)) + geom_histogram() + labs(title="histograma de
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 ``` r
 summary(x)
@@ -181,7 +169,7 @@ ggplot(data.frame(m=m), aes(x=m)) + geom_histogram() + labs(title="histograma de
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 Finalmente, aalculam-se os valores de *y* pelo seguinte modelo de
 regressão:
@@ -206,7 +194,7 @@ ggplot(data.frame(y=y), aes(x=y)) + geom_histogram() + labs(title="histograma de
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 Os dados criados parecem consistentes com os valores dos parâmetros das
 distribuições pretendidos.
@@ -226,21 +214,21 @@ distribuições pretendidos.
 [numeric]</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0.1 (0.9)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-2.3 &le; 0.1 &le; 2.2</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.2 (10.1)</td></tr></table></td>
       <td align="left" style="vertical-align:middle">100 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDDgPjUFREgAAAItJREFUWMPt12EKgCAMBWCvYDdo3iDvf7dqgopYtgmV+N4PwdiHA6mRMfPF1kJnVnuZO+v8ka8sN046y8sGCwsLCws7uq2O8YfW10YxbK9d+E6U1kf2lg3tKm2q/YstXwiJdcXhsLDD2+x/SWzDHrbDUvy8Ni1X5jaVNS0vsGKbZrXclo/fsqSJmS87/aDs19+9msQAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDItMjJUMTI6NTY6MTUrMDA6MDAabLsmAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTAyLTIyVDEyOjU2OjE1KzAwOjAwazEDmgAAAABJRU5ErkJggg=="></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDRIFAz0eEwAAAItJREFUWMPt12EKgCAMBWCvYDdo3iDvf7dqgopYtgmV+N4PwdiHA6mRMfPF1kJnVnuZO+v8ka8sN046y8sGCwsLCws7uq2O8YfW10YxbK9d+E6U1kf2lg3tKm2q/YstXwiJdcXhsLDD2+x/SWzDHrbDUvy8Ni1X5jaVNS0vsGKbZrXclo/fsqSJmS87/aDs19+9msQAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDItMjJUMTM6MTg6MDUrMDA6MDClQCEMAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTAyLTIyVDEzOjE4OjA1KzAwOjAw1B2ZsAAAAABJRU5ErkJggg=="></td>
     </tr>
     <tr>
       <td align="left">m
 [numeric]</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0 (0.9)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-2.1 &le; 0 &le; 2.1</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.3 (-29.1)</td></tr></table></td>
       <td align="left" style="vertical-align:middle">100 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDDgPjUFREgAAAIpJREFUWMPt12EKgCAMBWCvUDdIb9Duf7dqQpNR5IZF5Xs/BNEPZaBWCP1lOE3kHA5d2kRrZlhYWNjbLd9UTssM1mq55JPPbg291o7y7tmt1BW2ysrRtVvaGSxshdWXlsUmtTgsLOzHbPFPa7a539Tm7fisTHvMFp/ZZqum/dJyfZyWmwY2ehL6ywKypu5Ku5LTbAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wMi0yMlQxMjo1NjoxNSswMDowMBpsuyYAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDItMjJUMTI6NTY6MTUrMDA6MDBrMQOaAAAAAElFTkSuQmCC"></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDRIFAz0eEwAAAIpJREFUWMPt12EKgCAMBWCvUDdIb9Duf7dqQpNR5IZF5Xs/BNEPZaBWCP1lOE3kHA5d2kRrZlhYWNjbLd9UTssM1mq55JPPbg291o7y7tmt1BW2ysrRtVvaGSxshdWXlsUmtTgsLOzHbPFPa7a539Tm7fisTHvMFp/ZZqum/dJyfZyWmwY2ehL6ywKypu5Ku5LTbAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wMi0yMlQxMzoxODowNSswMDowMKVAIQwAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDItMjJUMTM6MTg6MDUrMDA6MDDUHZmwAAAAAElFTkSuQmCC"></td>
     </tr>
     <tr>
       <td align="left">y
 [numeric]</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0.1 (0.9)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-1.8 &le; 0.1 &le; 2.5</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.1 (9.1)</td></tr></table></td>
       <td align="left" style="vertical-align:middle">100 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDDgPjUFREgAAAItJREFUWMPt1tsJwCAMBVBXsBs0bqD779YaoYrYR4Kg1Hs/BMGDElBjzHqxrVDMbm/zZF04AwsLO8BufHWVNqoA+2JTiZU2Ag8L+0/LV4N0lgcPCws71jbb/482tJ6QXpaur1du87K5bF1siXXV5rBL2Nzjy221bEJb9BBim+ajLB9caXnoYEkTs14OfjviBsF8c2UAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDItMjJUMTI6NTY6MTUrMDA6MDAabLsmAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTAyLTIyVDEyOjU2OjE1KzAwOjAwazEDmgAAAABJRU5ErkJggg=="></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDRIFAz0eEwAAAItJREFUWMPt1tsJwCAMBVBXsBs0bqD779YaoYrYR4Kg1Hs/BMGDElBjzHqxrVDMbm/zZF04AwsLO8BufHWVNqoA+2JTiZU2Ag8L+0/LV4N0lgcPCws71jbb/482tJ6QXpaur1du87K5bF1siXXV5rBL2Nzjy221bEJb9BBim+ajLB9caXnoYEkTs14OfjviBsF8c2UAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDItMjJUMTM6MTg6MDUrMDA6MDClQCEMAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTAyLTIyVDEzOjE4OjA1KzAwOjAw1B2ZsAAAAABJRU5ErkJggg=="></td>
     </tr>
   </tbody>
 </table></div>
@@ -252,7 +240,7 @@ parâmetros de regressão definidos inicialmente
 ggpairs(df1) 
 ```
 
-![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 Recorremos a uma simulação Monte Carlo para confirmar que o processo de
 geração de dados adotado está correto. O nosso objetivo com o processo
@@ -295,7 +283,7 @@ ggplot(dfsim_x, aes(x=x)) + geom_histogram() + labs(title="histograma de x")
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 Com base nos valores de *x* gerados aleatoriamente, computamos *m*
 recorrendo às equações 7 e 8.
@@ -403,21 +391,21 @@ usando usando funções base do R.
 [numeric]</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0 (1)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-2.3 &le; 0 &le; 3.2</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.3 (-88.5)</td></tr></table></td>
       <td align="left" style="vertical-align:middle">200 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDDgRd05scQAAAIlJREFUWMPt19sJwCAMBVBXsBvUbqD771YNCPWt6UelufdLwYMogahS8qLzHMbn1N00rfOBhW3ZQW117dXfG1aeDeVkmDYQCws7slRkTEsT2H/belObs/WGCgu7uaVvAte653JYWHnWxDBsXGH3s+Vjad7S4I1NGvGiTQ7+gaWLY1qa5HW1EiUvNwdUy+SzGZwoAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTAyLTIyVDEyOjU2OjE3KzAwOjAwjfOqDwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wMi0yMlQxMjo1NjoxNyswMDowMPyuErMAAAAASUVORK5CYII="></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDRIGmjRPqQAAAIlJREFUWMPt19sJwCAMBVBXsBvUbqD771YNCPWt6UelufdLwYMogahS8qLzHMbn1N00rfOBhW3ZQW117dXfG1aeDeVkmDYQCws7slRkTEsT2H/belObs/WGCgu7uaVvAte653JYWHnWxDBsXGH3s+Vjad7S4I1NGvGiTQ7+gaWLY1qa5HW1EiUvNwdUy+SzGZwoAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTAyLTIyVDEzOjE4OjA2KzAwOjAwlKg7kQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wMi0yMlQxMzoxODowNiswMDowMOX1gy0AAAAASUVORK5CYII="></td>
     </tr>
     <tr>
       <td align="left">m
 [numeric]</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0 (1.1)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-2.6 &le; 0 &le; 2.9</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.3 (133.5)</td></tr></table></td>
       <td align="left" style="vertical-align:middle">200 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDDgRd05scQAAAJdJREFUWMPt1mEKgCAMBWCvkDdIb9Duf7eYOMlcRSMq9L1/4j4EcUPnxst0mMDRty5tJKIFFhYWtmPLI9Jq2cF2ab28C4ul7GBhYX9guZlno+XFV7b9wGs2VTW2vTTNVuWwsPkplm+RwdK+vLZVM960VUMNbP225U9sueutbap0G+Vso01jyWjT4gEro9FiZeNtGyxx42UF9U65n5uU13MAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDItMjJUMTI6NTY6MTcrMDA6MDCN86oPAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTAyLTIyVDEyOjU2OjE3KzAwOjAw/K4SswAAAABJRU5ErkJggg=="></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDRIGmjRPqQAAAJdJREFUWMPt1mEKgCAMBWCvkDdIb9Duf7eYOMlcRSMq9L1/4j4EcUPnxst0mMDRty5tJKIFFhYWtmPLI9Jq2cF2ab28C4ul7GBhYX9guZlno+XFV7b9wGs2VTW2vTTNVuWwsPkplm+RwdK+vLZVM960VUMNbP225U9sueutbap0G+Vso01jyWjT4gEro9FiZeNtGyxx42UF9U65n5uU13MAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDItMjJUMTM6MTg6MDYrMDA6MDCUqDuRAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTAyLTIyVDEzOjE4OjA2KzAwOjAw5fWDLQAAAABJRU5ErkJggg=="></td>
     </tr>
     <tr>
       <td align="left">y
 [numeric]</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0 (1.1)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-3.6 &le; 0.1 &le; 2.7</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.5 (22.1)</td></tr></table></td>
       <td align="left" style="vertical-align:middle">200 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDDgRd05scQAAAI1JREFUWMPt11EKgCAMBmCvkDdIb+Duf7ccTVLD0vUU+3/wodjHMGSSc/ayPSbk7PfXUzYSESwsrC3LM0Nr2cHCwtqyXmaGyor7anluaW1eadbyXkNnu95jm+tTZ6ntDQsLC3tF5o3KlkLYVP0KL9vqarJig0Rjy+OPrdzoXr7Cko3nSfXDwpe+y3H2cgBfZK7obco6WgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wMi0yMlQxMjo1NjoxNyswMDowMI3zqg8AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDItMjJUMTI6NTY6MTcrMDA6MDD8rhKzAAAAAElFTkSuQmCC"></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAABVBAMAAABusQ26AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gIWDRIGmjRPqQAAAI1JREFUWMPt11EKgCAMBmCvkDdIb+Duf7ccTVLD0vUU+3/wodjHMGSSc/ayPSbk7PfXUzYSESwsrC3LM0Nr2cHCwtqyXmaGyor7anluaW1eadbyXkNnu95jm+tTZ6ntDQsLC3tF5o3KlkLYVP0KL9vqarJig0Rjy+OPrdzoXr7Cko3nSfXDwpe+y3H2cgBfZK7obco6WgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wMi0yMlQxMzoxODowNiswMDowMJSoO5EAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDItMjJUMTM6MTg6MDYrMDA6MDDl9YMtAAAAAElFTkSuQmCC"></td>
     </tr>
   </tbody>
 </table></div>
@@ -426,7 +414,7 @@ usando usando funções base do R.
 ggpairs(df2[, c("x", "m", "y")]) 
 ```
 
-![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 Procedemos, realizando um estudo de Monte Carlo para verificar **em que
 medida os parâmetros estimados pelos modelos de regressão definidos
@@ -525,7 +513,7 @@ ggplot(data.frame(a=simcoef(dfsim_m_rep)), aes(x=a)) + geom_histogram() + labs(t
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 Repetimos o procedimento anterior para as estimativas de *y* dado *x* e
 *m*, também para *n* = 500.
@@ -611,7 +599,7 @@ ggplot(data.frame(cp=simcoef(dfsim_y_rep, parameter="x")), aes(x=cp)) + geom_his
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 ``` r
 mean(simcoef(dfsim_y_rep, parameter="m"))
@@ -625,7 +613,7 @@ ggplot(data.frame(b=simcoef(dfsim_y_rep, parameter="m")), aes(x=b)) + geom_histo
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-18-2.png)<!-- -->
+![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-17-2.png)<!-- -->
 
 A função **simglm::compute\_statistics** permite calcular a potencia e
 probabilidade de erro do tipo 1, neste caso quando se estima este modelo
@@ -893,7 +881,7 @@ ggplot(data.frame(xy=rnorm(30)*rnorm(30)), aes(x=xy)) + geom_histogram() + labs(
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 ## Estimação da significância de efeitos indiretos através do método de bootstrap
 
@@ -1007,7 +995,7 @@ ggplot(data.frame(theta=testboot1[[2]]), aes(x=theta)) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
 ### Bootstrap com correção de viés e fator de aceleração (Bias corrected e accelarated bootstrap)
 
@@ -1124,7 +1112,7 @@ ggplot(data.frame(theta=testboot1[[2]]), aes(x=theta)) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
+![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 ## Análise da potências dos testes
 
@@ -1261,7 +1249,7 @@ ggplot(power_df, aes(x=n, y=power, color=test)) +
              color = "darkgrey", size=.8)
 ```
 
-![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 ``` r
 ggplot(power_df) + 
@@ -1273,7 +1261,7 @@ ggplot(power_df) +
              color = "darkgrey", size=.8)
 ```
 
-![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-35-2.png)<!-- -->
+![](Mediation_Boot_relatório_files/figure-gfm/unnamed-chunk-34-2.png)<!-- -->
 
 # Fontes bibliográficas
 
