@@ -39,4 +39,4 @@ A título de curiosidade, deixamos aqui alguns exemplos práticos que utilizam a
 - https://www.thelancet.com/pdfs/journals/lanpub/PIIS2468-2667(20)30292-9.pdf  
 - https://www.thelancet.com/pdfs/journals/eclinm/PIIS2589-5370(21)00483-1.pdf  
 - https://eng.uber.com/mediation-modeling/  
-# 
+

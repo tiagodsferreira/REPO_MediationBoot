@@ -1,13 +1,8 @@
 ---
-title: "Estatística Computacional - Utilização do Bootstrap para Teste Hipóteses sobre Efeitos Indiretos"
+title: "Utilização do Bootstrap para Teste Hipóteses sobre Efeitos Indiretos"
 author: "Ana Machado, Ana Paquete, & Tiago Ferreira"
 date: "14 de Janeiro de 2022"
-output:
-  html_document:
-    code_folding: hide
-    toc: true
-    toc_float: true
-urlcolor: blue
+always_allow_html: yes
 ---
 ```{r, setup, include=FALSE}
 library(jtools)
@@ -29,14 +24,6 @@ knitr::opts_chunk$set(
   size="small")   # slightly smaller font for code
 ```  
 
-*** 
-“Declaro que o presente relatório é de minha autoria e não foi utilizado previamente noutro curso ou unidade curricular, desta ou de outra instituição. As referências a outros autores (afirmações, ideias, pensamentos) respeitam escrupulosamente as regras da atribuição, e encontram-se devidamente indicadas no texto e nas referências bibliográficas, de acordo com as normas de referenciação. Tenho consciência de que a prática de plágio e auto-plágio constitui um ilícito académico”.
-
-Ana Machado  
-Ana Paquete   
-Tiago Ferreira  
-
-***
 # Objetivos
 
 # Parte 1: Introdução à mediação e efeitos indiretos
